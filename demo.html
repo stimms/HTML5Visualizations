@@ -1,24 +1,26 @@
 <html>
-<head>
-    <script src="lib/jquery.min.js"></script>
-	<script src="lib/d3.min.js"></script>
-	<script src="js/demo.js"></script>
-	<script>
-	$(function(){
-		init();
-	});
-    </script>
-</head>
-<body>
-	<div class="chart">
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="graph1">
-		  <rect width="50" height="150" x="20" y="20" stroke="black" stroke-width="2" fill="#b3b3ff" />
-		  <rect width="50" height="120" x="75" y="50" stroke="black" stroke-width="2" fill="#b3b3ff"/>
-		  <rect width="50" height="90" x="130" y="80" stroke="black" stroke-width="2" fill="#b3b3ff"/>
-		  <rect width="50" height="60" x="185" y="110" stroke="black" stroke-width="2" fill="#b3b3ff"/>
-		  <line x1="10" x2="240" y1="175" y2="175" stroke="black" stroke-width="3"/>
-		  <line x1="10" x2="10" y1="0" y2="175" stroke="black" stroke-width="3"/>
-		</svg>
-	</div>
-</body>
+	<head>
+	    <script src="lib/jquery.min.js"></script>
+		<script src="lib/d3.min.js"></script>
+		<script src="lib/raphael.min.js"></script>
+		<script src="js/demo.js"></script>
+		<script>
+		$(function(){
+			init();
+		});
+		function init()
+		{
+			var paper = Raphael("chart", 320, 200);
+			var rectangle = paper.rect(50, 20, 50, 150);
+			rectangle.attr("fill", "#b3b3ff");
+			rectangle.attr("stroke", "black");
+			rectangle.attr("stroke-width", 2);
+		}
+	    </script>
+	</head>
+	<body>
+		<svg id="chart">
+	        
+	    </svg>
+	</body>
 </html>
