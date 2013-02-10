@@ -5,16 +5,33 @@
 		<script src="lib/raphael.min.js"></script>
 		<script src="js/demo.js"></script>
 		<script>
+		var data = [{month: "May", value: 5},	    
+  	      {month: "June", value: 4},
+	      {month: "July", value: 3},
+	      {month: "Simontober", value: 2}];
+
 		$(function(){
 			init();
 		});
 		function init()
 		{
 			var paper = Raphael("chart", 320, 200);
-			var rectangle = paper.rect(50, 20, 50, 150);
-			rectangle.attr("fill", "#b3b3ff");
-			rectangle.attr("stroke", "black");
-			rectangle.attr("stroke-width", 2);
+			addBars(paper, data);
+		}
+		function addBars(paper, data)
+		{
+			var maximumHeight = 150;
+			var columnWidth = 50;
+			var maximumValue = 0;
+			$.each(data, function(index, item){ if(maximumValue<item.value){maximumValue=item.value;}});
+			var unitHeight = maximumHeight/maximumValue;
+			
+			$.each(data, function(index, item){ 
+			  	var rectangle = paper.rect( index * (columnWidth + 5), maximumHeight - (unitHeight * item.value), 50, unitHeight * item.value);
+			  	rectangle.attr("fill", "#b3b3ff");
+			  	rectangle.attr("stroke", "black");
+			  	rectangle.attr("stroke-width", 2);}
+			);
 		}
 	    </script>
 	</head>
