@@ -30,7 +30,9 @@
 			  	var rectangle = paper.rect( index * (columnWidth + 5), maximumHeight - (unitHeight * item.value), 50, unitHeight * item.value);
 			  	rectangle.attr("fill", "#b3b3ff");
 			  	rectangle.attr("stroke", "black");
-			  	rectangle.attr("stroke-width", 2);}
+			  	rectangle.attr("stroke-width", 2);
+			  	paper.text((index * (columnWidth + 5)) + columnWidth/2, maximumHeight + 10, item.month);
+			  }
 			);
 		}
 	    </script>
