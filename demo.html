@@ -8,18 +8,18 @@
 		var data = [{month: "May", value: 5},	    
   	      {month: "June", value: 8},
 	      {month: "July", value: 3},
-	      {month: "Simontober", value: 2}}];
+	      {month: "Simontober", value: 2}];
 
 		$(function(){
-			var barchart = new Graphing.BarChart("chart", data, 300, 200);
+			var barchart = new Graphing.BarChart("#chart", data, 300, 200);
 			barchart.render();
 		});
 
 	    </script>
 	</head>
 	<body>
-		<svg id="chart">
+		<div id="chart">
 	        
-	    </svg>
+	    </div>
 	</body>
 </html>

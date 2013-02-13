@@ -1,41 +1,45 @@
-declare var Raphael: any;
+declare var d3: any;
 
 module Graphing
 {
-	export class BarChart{
-	
-		constructor(public container: string, public data: any[], public width: number, public height: number){	}
+  export class BarChart{
+		barHeight:number;
+		constructor(public container: string, public data: any[], public width: number, public height: number){
+			this.barHeight = height - 25;
+		}
+			
 		render()
 		{
-			var paper = Raphael(this.container, this.width, this.height);
-			var maximumHeight = this.height - 25;
-			var columnWidth = (this.width - (5*this.data.length)) /this.data.length;
-			var maximumValue = this.findMaximum(this.data);
-			var unitHeight = maximumHeight/maximumValue;
+			var graph = d3.select(this.container).append("svg")
+					.attr("width", this.width)
+					.attr("height", this.height);
 			
-			for(var index = 0; index< this.data.length; index++)
-			{ 
-				var item = this.data[index];
-				var rectangle = paper.rect( index * (columnWidth + 5), maximumHeight - (unitHeight * item.value), columnWidth, unitHeight * item.value);
-				rectangle.attr("fill", "#b3b3ff");
-				rectangle.attr("stroke", "black");
-				rectangle.attr("stroke-width", 2);
-				paper.text((index * (columnWidth + 5)) + (columnWidth/2), maximumHeight + 10, item.month);
+			var xScale = d3.scale.ordinal()
+					.domain(this.data.map(d=>{return d.month}))
+					.rangeBands([0,this.width], .1);
+			
+			var yScale = d3.scale.linear()
+					.domain([0,d3.max(this.data, d=>{return d.value})])
+					.range([0,this.barHeight]);
+					
+			var xAxis = d3.svg.axis().scale(xScale).orient("bottom");			
+			
+			graph.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + (this.barHeight) + ")")
+				.call(xAxis);
+				
+			graph.selectAll(".bar")
+				.data(this.data)
+				.enter()
+					.append("rect")
+						.attr("x", d=> xScale(d.month))
+						.attr("y", d => this.barHeight - yScale(d.value))
+						.attr("width", xScale.rangeBand())
+						.attr("height", d => yScale(d.value))
+						.style("fill", "steelblue");
+			
 			}
-		}
 		
-		private findMaximum(data)
-		{
-			var maximumValue = 0;
-			
-			data.forEach(item=>
-			{
-				if(maximumValue<item.value)
-				{
-					maximumValue=item.value;
-				}
-			});
-			return maximumValue;
-		}
 	}
 }
