@@ -6,35 +6,15 @@
 		<script src="js/demo.js"></script>
 		<script>
 		var data = [{month: "May", value: 5},	    
-  	      {month: "June", value: 4},
+  	      {month: "June", value: 8},
 	      {month: "July", value: 3},
-	      {month: "Simontober", value: 2}];
+	      {month: "Simontober", value: 2}}];
 
 		$(function(){
-			init();
+			var barchart = new Graphing.BarChart("chart", data, 300, 200);
+			barchart.render();
 		});
-		function init()
-		{
-			var paper = Raphael("chart", 320, 200);
-			addBars(paper, data);
-		}
-		function addBars(paper, data)
-		{
-			var maximumHeight = 150;
-			var columnWidth = 50;
-			var maximumValue = 0;
-			$.each(data, function(index, item){ if(maximumValue<item.value){maximumValue=item.value;}});
-			var unitHeight = maximumHeight/maximumValue;
-			
-			$.each(data, function(index, item){ 
-			  	var rectangle = paper.rect( index * (columnWidth + 5), maximumHeight - (unitHeight * item.value), 50, unitHeight * item.value);
-			  	rectangle.attr("fill", "#b3b3ff");
-			  	rectangle.attr("stroke", "black");
-			  	rectangle.attr("stroke-width", 2);
-			  	paper.text((index * (columnWidth + 5)) + columnWidth/2, maximumHeight + 10, item.month);
-			  }
-			);
-		}
+
 	    </script>
 	</head>
 	<body>
