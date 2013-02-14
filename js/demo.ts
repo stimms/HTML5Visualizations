@@ -33,11 +33,14 @@ module Graphing
 				.data(this.data)
 				.enter()
 					.append("rect")
-						.attr("x", d=> xScale(d.month))
-						.attr("y", d => this.barHeight - yScale(d.value))
 						.attr("width", xScale.rangeBand())
+						.style("fill", "steelblue")
+						.attr("x", d=> xScale(d.month))
+						.attr("y", this.barHeight)
+						.transition()
+						.duration(750)
 						.attr("height", d => yScale(d.value))
-						.style("fill", "steelblue");
+						.attr("y", d => this.barHeight - yScale(d.value));
 			
 			}
 		

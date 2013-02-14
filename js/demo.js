@@ -28,13 +28,13 @@ var Graphing;
             ]);
             var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
             graph.append("g").attr("class", "x axis").attr("transform", "translate(0," + (this.barHeight) + ")").call(xAxis);
-            graph.selectAll(".bar").data(this.data).enter().append("rect").attr("x", function (d) {
+            graph.selectAll(".bar").data(this.data).enter().append("rect").attr("width", xScale.rangeBand()).style("fill", "steelblue").attr("x", function (d) {
                 return xScale(d.month);
+            }).attr("y", this.barHeight).transition().duration(750).attr("height", function (d) {
+                return yScale(d.value);
             }).attr("y", function (d) {
                 return _this.barHeight - yScale(d.value);
-            }).attr("width", xScale.rangeBand()).attr("height", function (d) {
-                return yScale(d.value);
-            }).style("fill", "steelblue");
+            });
         };
         return BarChart;
     })();
