@@ -1,27 +1,15 @@
 <html>
 	<head>
-	    <script src="lib/jquery.min.js"></script>
-		<script src="lib/d3.min.js"></script>
-		<script src="lib/raphael.min.js"></script>
-		<script src="js/demo.js"></script>
-		<script>
-		var data = [{month: "May", value: 5, weeks: [10, 30, 50, 10]},
-	    {month: "June", value: 4, weeks: [20, 20, 40, 20]},
-	    {month: "July", value: 3, weeks: [20, 20, 20, 40]},
-	    {month: "Simontober", value: 2, weeks: [30, 10, 40, 20]},
-	    {month: "September", value: 8, weeks: [5, 40, 50, 5]},
-	    {month: "October", value: 4, weeks: [20, 20, 40, 20]}];
-
-		$(function(){
-			var barchart = new Graphing.BarChart("#chart", data, 300, 200);
-			barchart.render();
-		});
-
-	    </script>
+	    
 	</head>
 	<body>
-		<div id="chart">
-	        
-	    </div>
+		<svg id="chart">
+			<g transform="translate(55 -15) scale(2) ">
+		    	<rect x="50" y="50" width="50" height="50" fill="pink"  transform="rotate(-45 100 100)"/>
+		    	<circle cx="43" cy="79" r="25" fill="pink"/>
+		    	<circle cx="86" cy="79" r="25" fill="pink"/>
+		    	<text x="67" y="50" text-anchor="middle" fill="black" font-size="20">Happy Valentine's Day</text>
+	    	</g>
+	    </svg>
 	</body>
 </html>
