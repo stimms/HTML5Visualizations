@@ -30,7 +30,24 @@ var Graphing;
             graph.append("g").attr("class", "x axis").attr("transform", "translate(0," + (this.barHeight) + ")").call(xAxis);
             graph.selectAll(".bar").data(this.data).enter().append("rect").attr("width", xScale.rangeBand()).style("fill", "steelblue").attr("x", function (d) {
                 return xScale(d.month);
-            }).attr("y", this.barHeight).transition().duration(750).attr("height", function (d) {
+            }).attr("y", this.barHeight).on("mouseover", function (d) {
+                var colourScale = d3.scale.category10();
+                var bar = d3.select(this);
+                var runningTotal = parseFloat(bar.attr("y"));
+                graph.selectAll(".weekBar").data(d.weeks).enter().append("rect").attr("class", "weekBar").attr("width", xScale.rangeBand()).attr("x", bar.attr("x")).attr("y", function (b) {
+                    var barHeight = yScale(d.value * b / 100);
+                    runningTotal += barHeight;
+                    return runningTotal - barHeight;
+                }).attr("height", function (b) {
+                    return yScale(d.value * b / 100);
+                }).style("fill", function (x, y) {
+                    return colourScale(y);
+                });
+                graph.append("rect").attr("width", xScale.rangeBand()).attr("height", bar.attr("height")).attr("x", bar.attr("x")).attr("y", bar.attr("y")).style("opacity", ".01").attr("class", "mouseOverCover").on("mouseout", function (d, i) {
+                    graph.selectAll(".weekBar").remove();
+                    graph.selectAll(".mouseOverCover").remove();
+                });
+            }).transition().duration(750).attr("height", function (d) {
                 return yScale(d.value);
             }).attr("y", function (d) {
                 return _this.barHeight - yScale(d.value);
