@@ -39,6 +39,7 @@ module Graphing
 						.attr("y", this.barHeight)
 						.transition()
 						.duration(750)
+						.style("fill", "pink")
 						.attr("height", d => yScale(d.value))
 						.attr("y", d => this.barHeight - yScale(d.value));
 			
